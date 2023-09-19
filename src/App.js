@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Fragment } from 'react';
+import { puplicRoutes } from './routes';
+import { DefaultLayout } from './components/Layout';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    {puplicRoutes.map((puplicRoute, index) => {
+                        const Page = puplicRoute.component;
+
+                        let Layout = DefaultLayout;
+
+                        if (puplicRoute.layout) {
+                            Layout = puplicRoute.layout;
+                        } else if (puplicRoute.layout === null) {
+                            Layout = Fragment;
+                        }
+
+                        return (
+                            <Route
+                                key={index}
+                                path={puplicRoute.path}
+                                element={
+                                    <Layout>
+                                        <Page />
+                                    </Layout>
+                                }
+                            />
+                        );
+                    })}
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
