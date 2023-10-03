@@ -5,6 +5,7 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '~/components/Button';
 import AcountItem from '~/components/AcountItem';
 import Menu from '~/components/Popper/Menu';
+import Image from '~/components/Image';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -29,6 +30,7 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import Tippy from '@tippyjs/react';
 import { useEffect, useState } from 'react';
 import 'tippy.js/dist/tippy.css';
+import { InboxIcon, UploadIcon } from '~/components/icons';
 
 const cx = classNames.bind(styles);
 
@@ -63,6 +65,32 @@ const MENU_ITEMS = [
     },
 ];
 
+const userMenu = [
+    {
+        icon: <FontAwesomeIcon icon={faUser} />,
+        title: 'View profile',
+        to: '/@hoa',
+    },
+
+    {
+        icon: <FontAwesomeIcon icon={faCoins} />,
+        title: 'Get coins',
+        to: '/coin',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faGear} />,
+        title: 'Settings',
+        to: '/setting',
+    },
+    ...MENU_ITEMS,
+    {
+        icon: <FontAwesomeIcon icon={faSignOut} />,
+        title: 'Log out',
+        to: '/logout',
+        separate: true,
+    },
+];
+
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
 
@@ -70,7 +98,7 @@ function Header() {
 
     useEffect(() => {
         setTimeout(() => {
-            setSearchResult([]);
+            setSearchResult([1]);
         }, 0);
     }, []);
 
@@ -83,32 +111,6 @@ function Header() {
             default:
         }
     };
-
-    const userMenu = [
-        {
-            icon: <FontAwesomeIcon icon={faUser} />,
-            title: 'View profile',
-            to: '/@hoa',
-        },
-
-        {
-            icon: <FontAwesomeIcon icon={faCoins} />,
-            title: 'Get coins',
-            to: '/coin',
-        },
-        {
-            icon: <FontAwesomeIcon icon={faGear} />,
-            title: 'Settings',
-            to: '/setting',
-        },
-        ...MENU_ITEMS,
-        {
-            icon: <FontAwesomeIcon icon={faSignOut} />,
-            title: 'Log out',
-            to: '/logout',
-            separate: true,
-        },
-    ];
 
     return (
         <header className={cx('wrapper')}>
@@ -123,7 +125,7 @@ function Header() {
                     render={(attrs) => (
                         <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                             <PopperWrapper>
-                                <h4 className={cx('search-title')}>My HeadlessTippy box</h4>
+                                <h4 className={cx('search-title')}>Account</h4>
                                 <AcountItem />
                                 <AcountItem />
                                 <AcountItem />
@@ -154,9 +156,12 @@ function Header() {
                         <>
                             <Tippy delay={[0, 200]} content="Upload video">
                                 <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                    <UploadIcon></UploadIcon>
                                 </button>
                             </Tippy>
+                            <button className={cx('action-btn')}>
+                                <InboxIcon></InboxIcon>
+                            </button>
                             {/* <button className={cx('action-btn')}>
                                 <FontAwesomeIcon icon={faMessage} />
                             </button> */}
@@ -170,11 +175,12 @@ function Header() {
 
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img
+                            <Image
                                 src="https://cdn.ferrari.com/cms/network/media/img/resize/64a3cdc64f6e4300212d82c8-ferrari-genuine-banner-f8-tributo-page-split-mob?width=375&height=350"
                                 className={cx('user-avatar')}
                                 alt="Nguyen Van A"
-                            ></img>
+                                fallback="https://www.elegantthemes.com/blog/wp-content/uploads/2020/08/000-http-error-codes.png"
+                            ></Image>
                         ) : (
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
