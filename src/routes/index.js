@@ -10,7 +10,7 @@ const puplicRoutes = [
         component: Home,
     },
     {
-        path: '/profile',
+        path: '/:nickname',
         component: Profile,
     },
     {

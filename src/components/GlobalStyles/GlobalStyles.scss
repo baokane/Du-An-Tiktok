@@ -29,17 +29,17 @@ html {
     src: url('/assets/font/TikTokFont-Regular.woff2');
     font-weight: 400;
 }
-font-face {
+@font-face {
     font-family: ProximaNova;
     src: url('/assets/font/TikTokFont-Semibold.woff2');
     font-weight: 600;
 }
-font-face {
+@font-face {
     font-family: ProximaNova;
     src: url('/assets/font/TikTokFont-Bold.woff2');
     font-weight: 700;
 }
-font-face {
+@font-face {
     font-family: SofiaPro;
     src: url('/assets/font/TikTokDisplayFont-Bold.woff2');
     font-weight: 700;
