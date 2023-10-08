@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useState, useEffect, useRef } from 'react';
 
-import * as request from '~/utils/request';
+import * as searchServices from '~/apiServices/searchServices';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AcountItem from '~/components/AcountItem';
 import styles from './Search.module.scss';
@@ -31,17 +31,16 @@ function Search() {
 
         setLoading(true);
 
-        request
-            .get('users/search', {
-                params: {
-                    q: debounced,
-                    type: 'less',
-                },
-            })
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false);
-            });
+        const fetchApi = async () => {
+            setLoading(true);
+
+            const result = await searchServices.search(debounced);
+            setSearchResult(result);
+
+            setLoading(false);
+        };
+
+        fetchApi();
     }, [debounced]);
 
     const handleClear = () => {
@@ -51,6 +50,16 @@ function Search() {
     };
 
     const handleHideResult = () => setShowResult(false);
+
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+        if (searchValue.startsWith(' ')) {
+            return;
+        }
+        setSearchValue(searchValue);
+    };
+
+    const handleSubmit = (e) => {};
 
     return (
         <HeadlessTippy
@@ -74,10 +83,7 @@ function Search() {
                     value={searchValue}
                     placeholder="Search videos"
                     spellCheck={false}
-                    onChange={(e) => {
-                        setSearchValue(e.target.value);
-                        // e.target.value = e.target.value.trimStart();
-                    }}
+                    onChange={handleChange}
                     onFocus={() => setShowResult(true)}
                 />
 
@@ -90,7 +96,7 @@ function Search() {
                 {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
 
                 <HeadlessTippy content={'Tìm kiếm'} placement="right">
-                    <button className={cx('search-btn')}>
+                    <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
                         <SearchIcon></SearchIcon>
                     </button>
                 </HeadlessTippy>
