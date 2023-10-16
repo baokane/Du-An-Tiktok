@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useState, useEffect, useRef } from 'react';
 
-import * as searchServices from '~/apiServices/searchServices';
+import * as searchServices from '~/services/searchService';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AcountItem from '~/components/AcountItem';
 import styles from './Search.module.scss';
@@ -59,7 +59,7 @@ function Search() {
         setSearchValue(searchValue);
     };
 
-    const handleSubmit = (e) => {};
+    // const handleSubmit = (e) => {};
 
     return (
         <div>

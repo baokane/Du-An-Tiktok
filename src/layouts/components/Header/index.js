@@ -22,7 +22,7 @@ import 'tippy.js/dist/tippy.css';
 import { InboxIcon, UploadIcon } from '~/components/icons';
 import Search from '../Search';
 import images from '~/assets/images';
-import routesConfig from '~/config/routes';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -57,116 +57,6 @@ const MENU_ITEMS = [
                     type: ' language',
                     code: 'en',
                     title: 'English',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
-                },
-                {
-                    type: ' language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: ' language',
-                    code: 'vi',
-                    title: ' Tiếng Việt',
                 },
                 {
                     type: ' language',
@@ -224,7 +114,7 @@ const userMenu = [
 ];
 
 function Header() {
-    const currentUser = true;
+    let currentUser = true;
 
     const handleMenuChange = (menuItems) => {
         switch (menuItems.type) {
@@ -238,9 +128,11 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link to={routesConfig.home} className={cx('logo-link')}>
+                <Link to={config.routes.home} className={cx('logo-link')}>
                     <img src={images.logo} alt="ảnh" />
                 </Link>
+
+                <Button>{1}</Button>
 
                 <Search></Search>
 
@@ -261,24 +153,26 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button text>Upload</Button>
-                            <Button primary>Log in</Button>
+                            <Button primary>Upload</Button>
+                            <Button rounded>Log in</Button>
                         </>
                     )}
 
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
-                        {currentUser ? (
-                            <Image
-                                src="https://cdn.ferrari.com/cms/network/media/img/resize/64a3cdc64f6e4300212d82c8-ferrari-genuine-banner-f8-tributo-page-split-mob?width=375&height=350"
-                                className={cx('user-avatar')}
-                                alt="Nguyen Van A"
-                                fallback="https://www.elegantthemes.com/blog/wp-content/uploads/2020/08/000-http-error-codes.png"
-                            ></Image>
-                        ) : (
-                            <button className={cx('more-btn')}>
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
-                            </button>
-                        )}
+                        {
+                            (currentUser = true ? (
+                                <Image
+                                    src="https://cdn.ferrari.com/cms/network/media/img/resize/64a3cdc64f6e4300212d82c8-ferrari-genuine-banner-f8-tributo-page-split-mob?width=375&height=350"
+                                    className={cx('user-avatar')}
+                                    alt="Nguyen Van A"
+                                    fallback="https://www.elegantthemes.com/blog/wp-content/uploads/2020/08/000-http-error-codes.png"
+                                ></Image>
+                            ) : (
+                                <button className={cx('more-btn')}>
+                                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                                </button>
+                            ))
+                        }
                     </Menu>
                 </div>
             </div>
