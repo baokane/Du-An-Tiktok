@@ -8,7 +8,7 @@ import Image from '../Image';
 
 const cx = classNames.bind(styles);
 
-function AcountItem({ data }) {
+function AccountItem({ data }) {
     return (
         <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
             <Image className={cx('avatar')} src={data.avatar} alt={data.full_name} />
@@ -23,8 +23,8 @@ function AcountItem({ data }) {
     );
 }
 
-AcountItem.propTypes = {
+AccountItem.propTypes = {
     data: PropsTypes.object.isRequired,
 };
 
-export default AcountItem;
+export default AccountItem;
