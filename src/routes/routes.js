@@ -3,6 +3,7 @@ import Home from '~/pages/Home';
 import Profile from '~/pages/Profile';
 import Upload from '~/pages/Upload';
 import Search from '~/pages/Search';
+import Live from '~/pages/LIve';
 
 // Layout
 import { HeaderOnly } from '~/layouts';
@@ -28,6 +29,10 @@ const puplicRoutes = [
         path: config.routes.search,
         component: Search,
         layout: null,
+    },
+    {
+        path: config.routes.live,
+        component: Live,
     },
 ];
 
